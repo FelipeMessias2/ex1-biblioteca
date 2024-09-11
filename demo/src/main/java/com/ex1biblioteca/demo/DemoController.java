@@ -2,10 +2,10 @@ package com.ex1biblioteca.demo;
 
 @RestController
 public class DemoController {
-    private IAcervoRepository livros;
+    private IAcervo livros;
 
     @Autowired
-    public Controller(IAcervoRepository livros) {
+    public Controller(IAcervo livros) {
         this.livros = livros; 
     }
 
