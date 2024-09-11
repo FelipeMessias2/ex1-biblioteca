@@ -1,5 +1,8 @@
 package com.ex1biblioteca.demo;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 /**
  * UsuarioJDBC
  */
@@ -15,6 +18,5 @@ public class UsuarioJDBC implements IUsuario {
     public UsuarioJDBC(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    
     
 }

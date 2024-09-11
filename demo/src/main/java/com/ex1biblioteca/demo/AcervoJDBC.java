@@ -2,6 +2,9 @@ package com.ex1biblioteca.demo;
 
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 /**
  * AcervoJDBC sla teste
  */
@@ -16,32 +19,41 @@ public class AcervoJDBC implements IAcervo {
 
     @Override
     public List<Livro> getAll() {
-        return jdbcTemplate.query("select * from livros",
-         new LivroRowMapper());
+        List<Livro> livros = jdbcTemplate.query("select * from livros",
+            (rs, rowNum) -> 
+                new Livro(rs.getInt("codigo") ,rs.getString("titulo"), rs.getString("autor"), rs.getInt("ano")));    
+        return livros;
     }
 
     @Override
     public List<String> getTitulos() {
-        return jdbcTemplate.query("select titulo from livros",
-         new TituloRowMapper());
+        List<String> titulos = this.jdbcTemplate.query("SELECT titulo FROM livros", 
+            (rs, rowNum) -> 
+                rs.getString("titulo"));
+        return titulos;
     }
 
     @Override
     public List<String> getAutores() {
-        return jdbcTemplate.query("select autor from livros",
-         new AutorRowMapper());
+        List<String> autores = this.jdbcTemplate.query("SELECT autor FROM livros", 
+            (rs, rowNum) -> 
+                rs.getString("autor"));
+        return autores;   
     }
 
     @Override
     public List<Livro> getLivrosDoAutor(String autor) {
-        return jdbcTemplate.query("select * from livros where autor = ?",
-         new LivroRowMapper(), autor);
-    }
+        List<Livro> livros = jdbcTemplate.query("select * from livros where autor = " + autor,
+         (rs,rownum) ->
+            new Livro(rs.getInt("codigo"), rs.getString("titulo"), rs.getString("autor"), rs.getInt("ano")));
+        return livros;
+        }
 
     @Override
     public Livro getLivroTitulo(String titulo) {
-        return jdbcTemplate.queryForObject("select * from livros where titulo = ?",
-         new LivroRowMapper(), titulo);
+        return jdbcTemplate.queryForObject("select * from livros where titulo = " + titulo,
+         (rs, rowNum) -> 
+            new Livro(rs.getInt("codigo"), rs.getString("titulo"), rs.getString("autor"), rs.getInt("ano")));
     }
 
     @Override
@@ -55,5 +67,4 @@ public class AcervoJDBC implements IAcervo {
         return jdbcTemplate.update("delete from livros where codigo = ?", codigo) == 1;
     }
 
-    
 }
