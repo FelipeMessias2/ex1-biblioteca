@@ -3,12 +3,9 @@ package com.ex1biblioteca.demo;
 import java.util.List;
 
 /**
- * AcervoJDBC
+ * AcervoJDBC sla teste
  */
 @Repository
-/**
- * AcervoJDBC
- */
 public class AcervoJDBC implements IAcervo {
 
     private JdbcTemplate jdbcTemplate;
