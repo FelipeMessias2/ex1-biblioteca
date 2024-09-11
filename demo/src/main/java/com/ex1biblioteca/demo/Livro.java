@@ -1,4 +1,4 @@
-package com.bcopstein.ex1biblioeca;
+package com.ex1biblioteca.demo;
 
 public class Livro {
     private long id;
