@@ -58,4 +58,10 @@ public class DemoController {
     public boolean cadastraLivroNovo(@RequestBody final Livro livro) {
         return livros.cadastraLivroNovo(livro);
     }
+
+    @GetMapping("/retira_livro/{cod_usuario}/{cod_livro}")
+    @CrossOrigin(origins = "*")
+    public boolean retiraLivro(@PathVariable(value="cod_usuario") int codUsuario, @PathVariable(value="cod_livro")int codLivro) {
+        return livros.retiraLivro(codUsuario, codLivro);
+    }
 }
