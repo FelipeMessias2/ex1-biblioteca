@@ -39,4 +39,5 @@ public class Livro {
     public String toString() {
         return "Livro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", ano=" + ano + ", cod_usuario=" + cod_usuario + "]";
     }
+    
 }
