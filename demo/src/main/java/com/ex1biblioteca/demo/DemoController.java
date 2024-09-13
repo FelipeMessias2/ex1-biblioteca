@@ -26,19 +26,19 @@ public class DemoController {
         return "Bem vindo a biblioteca central!";
     }
 
-    @GetMapping("livros")
+    @GetMapping("/livros")
     @CrossOrigin(origins = "*")
     public List<Livro> getListaLivros() {
         return livros.getAll();
     }
 
-    @GetMapping("autores")
+    @GetMapping("/autores")
     @CrossOrigin(origins = "*")
     public List<String> getListaAutores() {
         return livros.getAutores();
     }
 
-    @GetMapping("livrosAutor")
+    @GetMapping("/livrosAutor")
     @CrossOrigin(origins = "*")
     public List<Livro> getLivrosDoAutor(@RequestParam(value = "autor") String autor) {
         return livros.getLivrosDoAutor(autor);
@@ -64,4 +64,17 @@ public class DemoController {
     public boolean retiraLivro(@PathVariable(value="cod_usuario") int codUsuario, @PathVariable(value="cod_livro")int codLivro) {
         return livros.retiraLivro(codUsuario, codLivro);
     }
+
+    @PostMapping("/devolvelivro/{codigo}")
+    @CrossOrigin(origins = "*")
+    public boolean devolveLivro(@RequestParam(value = "codigo") int codlivro) {
+        return livros.devolveLivro(codlivro);
+    }
+
+    @PostMapping("/removelivro/{codigo}")
+    @CrossOrigin(origins = "*")
+    public boolean removeLivro(@RequestParam(value = "codigo") int codlivro) {
+        return livros.removeLivro(codlivro);
+    }
+
 }

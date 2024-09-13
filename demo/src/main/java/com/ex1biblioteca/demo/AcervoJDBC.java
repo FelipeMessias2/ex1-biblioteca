@@ -21,12 +21,7 @@ public class AcervoJDBC implements IAcervo {
     public List<Livro> getAll() {
         List<Livro> livros = jdbcTemplate.query("select * from livros",
             (rs, rowNum) -> 
-                new Livro(
-                    rs.getInt("codigo"),
-                    rs.getString("titulo"),
-                    rs.getString("autor"),
-                    rs.getInt("ano"),
-                    rs.getInt("cod_usuario")));    
+                new Livro(rs.getInt("codigo") ,rs.getString("titulo"), rs.getString("autor"), rs.getInt("ano"), rs.getInt("cod_usuario")));    
         return livros;
     }
 
@@ -50,12 +45,7 @@ public class AcervoJDBC implements IAcervo {
     public List<Livro> getLivrosDoAutor(String autor) {
         List<Livro> livros = jdbcTemplate.query("select * from livros where autor = " + autor,
          (rs,rownum) ->
-            new Livro(
-                rs.getInt("codigo"), 
-                rs.getString("titulo"), 
-                rs.getString("autor"),
-                rs.getInt("ano"), 
-                rs.getInt("cod_usuario")));
+            new Livro(rs.getInt("codigo"), rs.getString("titulo"), rs.getString("autor"), rs.getInt("ano"), rs.getInt("cod_usuario")));
         return livros;
         }
 
@@ -63,12 +53,7 @@ public class AcervoJDBC implements IAcervo {
     public Livro getLivroTitulo(String titulo) {
         return jdbcTemplate.queryForObject("select * from livros where titulo = " + titulo,
          (rs, rowNum) -> 
-            new Livro(
-            rs.getInt("codigo"),
-            rs.getString("titulo"),
-            rs.getString("autor"), 
-            rs.getInt("ano"),
-            rs.getInt("cod_usuario")));
+            new Livro(rs.getInt("codigo"), rs.getString("titulo"), rs.getString("autor"), rs.getInt("ano"), rs.getInt("cod_usuario")));
     }
 
     @Override
@@ -78,12 +63,18 @@ public class AcervoJDBC implements IAcervo {
     }
 
     @Override
-    public boolean removeLivro(long codigo) {
+    public boolean removeLivro(int codigo) {
         return jdbcTemplate.update("delete from livros where codigo = ?", codigo) == 1;
     }
 
     @Override
-    public boolean retiraLivro(int codUsuario, int codLivro) {
-        return jdbcTemplate.update("UPDATE livros SET cod_usuario = ? WHERE codigo = ?", codUsuario, codLivro) == 1;
+    public boolean retiraLivro(int codigo, int coduser) {
+        return jdbcTemplate.update("update livros set cod_usuario = ? where codigo = ?", coduser, codigo) == 1;
     }
+
+    @Override
+    public boolean devolveLivro(int codigo) {
+        return jdbcTemplate.update("update livros set cod_usuario = -1 where codigo = ?", codigo) == 1;
+    }
+
 }

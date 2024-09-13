@@ -12,7 +12,8 @@ public interface IAcervo {
     List<Livro> getLivrosDoAutor(String autor);
     Livro getLivroTitulo(String titulo);
     boolean cadastraLivroNovo(Livro livro);
-    boolean removeLivro(long codigo);
-    boolean retiraLivro(int codigoUsuario, int codigoLivro);
+    boolean removeLivro(int codigo);
+    boolean retiraLivro(int codigo, int coduser);
+    boolean devolveLivro(int codigo);
 
 }
