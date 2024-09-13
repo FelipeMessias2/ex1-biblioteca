@@ -65,19 +65,13 @@ public class DemoController {
         return livros.retiraLivro(codUsuario, codLivro);
     }
 
-    @PostMapping("/retiralivro")
-    @CrossOrigin(origins = "*")
-    public boolean retiraLivro(@RequestParam(value = "codigo") int codlivro, @RequestParam(value = "coduser") int coduser) {
-        return livros.retiraLivro(codlivro, coduser);
-    }
-
-    @PostMapping("/devolvelivro")
+    @PostMapping("/devolvelivro/{codigo}")
     @CrossOrigin(origins = "*")
     public boolean devolveLivro(@RequestParam(value = "codigo") int codlivro) {
         return livros.devolveLivro(codlivro);
     }
 
-    @PostMapping("/removelivro")
+    @PostMapping("/removelivro/{codigo}")
     @CrossOrigin(origins = "*")
     public boolean removeLivro(@RequestParam(value = "codigo") int codlivro) {
         return livros.removeLivro(codlivro);
