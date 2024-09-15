@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +39,7 @@ public class DemoController {
 
     @GetMapping("/livrosAutor")
     @CrossOrigin(origins = "*")
-    public List<Livro> getLivrosDoAutor(@RequestParam(value = "autor") String autor) {
+    public List<Livro> getLivrosDoAutor(@PathVariable(value = "autor") String autor) {
         return livros.getLivrosDoAutor(autor);
     }
 
@@ -53,7 +52,7 @@ public class DemoController {
                 .toList();
     }
 
-    @PostMapping("/novolivro")
+    @GetMapping("/novolivro")
     @CrossOrigin(origins = "*")
     public boolean cadastraLivroNovo(@RequestBody final Livro livro) {
         return livros.cadastraLivroNovo(livro);
@@ -65,13 +64,13 @@ public class DemoController {
         return livros.retiraLivro(codUsuario, codLivro);
     }
 
-    @PostMapping("/devolvelivro/{codigo}")
+    @GetMapping("/devolvelivro/{codigo}")
     @CrossOrigin(origins = "*")
-    public boolean devolveLivro(@RequestParam(value = "codigo") int codlivro) {
+    public boolean devolveLivro(@PathVariable(value = "codigo") int codlivro) {
         return livros.devolveLivro(codlivro);
     }
 
-    @PostMapping("/removelivro/{codigo}")
+    @GetMapping("/removelivro/{codigo}")
     @CrossOrigin(origins = "*")
     public boolean removeLivro(@RequestParam(value = "codigo") int codlivro) {
         return livros.removeLivro(codlivro);
