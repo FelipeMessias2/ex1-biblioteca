@@ -68,8 +68,16 @@ public class AcervoJDBC implements IAcervo {
     }
 
     @Override
-    public boolean retiraLivro(int codigo, int coduser) {
-        return jdbcTemplate.update("update livros set cod_usuario = ? where codigo = ?", coduser, codigo) == 1;
+    public boolean retiraLivro(int codUsuario, int codLivro) {
+        return jdbcTemplate.update("""
+            update livros 
+            set cod_usuario = ? 
+            where codigo = ?
+            and cod_usuario = -1
+            and exists(
+            select 1 
+            from usuarios as u
+            where u.codigo = ?)""", codUsuario, codLivro, codUsuario) == 1;
     }
 
     @Override
